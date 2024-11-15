@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aforismi di Scienziati</title>
+    <style>
+        .aforisma {
+            display: none;
+            margin-top: 10px;
+            font-style: italic;
+            font-size: 18px;
+           
+        }
+        button {
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #e474ee;
+            color: rgb(197, 236, 234);
+        }
+    </style>
+</head>
+<body>
+    <h1>Aforismi di Scienziati</h1>
+
+    <button onclick="toggleAforisma('aforisma1')">Aforisma 1</button>
+    <button onclick="toggleAforisma('aforisma2')">Aforisma 2</button>
+    <button onclick="toggleAforisma('aforisma3')">Aforisma 3</button>
+    <button onclick="toggleAforisma('aforisma4')">Aforisma 4</button>
+    <button onclick="toggleAforisma('aforisma5')">Aforisma 5</button>
+
+    <div id="aforisma1" class="aforisma">
+        "I medici senza clienti si chiamano scienziati" –Pitigrilli
+    </div>
+    <div id="aforisma2" class="aforisma">
+        "Tutto ciò che è grande è semplice." – Albert Einstein
+    </div>
+    <div id="aforisma3" class="aforisma">
+        "Qualsiasi marmocchio può uccidere una pulce: tutti gli studiosi delle accademie del mondo non sono in grado di crearne una." – Albert Einstein
+    </div>
+    <div id="aforisma4" class="aforisma">
+        "Gli scienziati sognano di fare grandi cose. Gli ingegneri le realizzano." – James Michener
+    </div>
+    <div id="aforisma5" class="aforisma">
+        "Ogni cosa è fatta di atomi, quindi anche tu e io." – Richard Feynman
+    </div>
+
+    <script>
+        function toggleAforisma(aforismaId) {
+            var aforisma = document.getElementById(aforismaId);
+            if (aforisma.style.display === "none" || aforisma.style.display === "") {
+                aforisma.style.display = "block"; // Mostra il testo
+            } else {
+                aforisma.style.display = "none"; // Nascondi il testo
+            }
+        }
+    </script>
+</body>
+</html>
