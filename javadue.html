@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js2</title>
+    <style>
+        #miobottone {
+  display: inline-block;
+  padding: 15px 25px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #c20d9b;
+  background-color: #d95add;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #d10193;
+}
+
+.button:hover {background-color: #ae43ce}
+
+.button:active {
+  background-color: #c47ce6;
+  box-shadow: 0 5px #cc14c3;
+  transform: translateY(4px);
+}
+
+    </style>
+</head>
+<body>
+    <button id = "miobottone" onclick="aprifinestra()">bottone</button>
+    <input type="text" name="input" id="i1" >
+
+    <div>
+        <p id="out1">risultato: </p>
+    </div>
+
+    <script>
+        function aprifinestra()
+        {
+            let i = document.getElementById("i1").value;
+            alert("alice non si lava!! " + i);
+            document.getElementById("out1").innerHTML = "risultato: " + i;
+        }
+    </script>
+</body>
+
+
+
+</html>
