@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dislivello Trekking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #b5f4ffc5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            height: 60vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+            margin: 70px
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #000000;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        input[type="number"] {
+            width: 80%;
+            padding: 8px;
+            margin-top: 5px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            color: rgb(4, 4, 4);
+            cursor: pointer;
+            background-image: url('monviso.png');
+            background-size: cover;
+            background-position: center;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        .result span {
+            color: #e99efc;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calcolo del Dislivello</h1>
+
+        <label for="partenza">Punto di <b>PARTENZA</b></label>
+        <input type="number" id="partenza" placeholder="Inserisci l'altezza (m)" required>
+
+        <label for="pausa">Punto di <b>PAUSA</b></label>
+        <input type="number" id="pausa" placeholder="Inserisci l'altezza (m)" required>
+
+        <label for="arrivo">Punto di <b>ARRIVO</b></label>
+        <input type="number" id="arrivo" placeholder="Inserisci l'altezza (m)" required>
+
+        <button onclick="calcolaDislivello()">Calcola Dislivello</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calcolaDislivello() {
+            var partenza = parseFloat(document.getElementById('partenza').value);
+            var pausa = parseFloat(document.getElementById('pausa').value);
+            var arrivo = parseFloat(document.getElementById('arrivo').value);
+
+            if (isNaN(partenza) || isNaN(pausa) || isNaN(arrivo)) {
+                alert("Per favore, inserisci tutti i valori.");
+                return;
+            }
+
+            var dislivelloTotale = Math.abs(arrivo - partenza) + Math.abs(pausa - partenza) + Math.abs(arrivo - pausa);
+            document.getElementById('result').innerHTML = "Dislivello totale: <span>" + dislivelloTotale + " metri</span>";
+        }
+    </script>
+</body>
+</html>
