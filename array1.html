@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>array1</title>
+    <style>
+        #numeri_casuali {
+            border: solid 5px #000000;
+            border-radius: 15px;
+            background-color: #b9fff7;
+            text-align: center;
+            padding: 30px;
+            width: auto;
+            box-sizing: border-box;
+            box-shadow: 5px 10px #fa9638;
+        }
+        #gh {
+            border: solid 5px #000000;
+            border-radius: 15px;
+            background-color: #affff6;
+            text-align: center;
+            padding: 30px;
+            width: auto;
+            box-sizing: border-box;
+            box-shadow: 5px 10px #f39946;
+        }
+        #hg {
+            border: solid 5px #000000;
+            border-radius: 15px;
+            background-color: #c2fff8;
+            text-align: center;
+            padding: 30px;
+            width: auto;
+            box-sizing: border-box;
+            box-shadow: 5px 10px #ffab5c;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Analisi Numerica array1</h1>
+    <p> Imparo ad usare gli array con i numeri</p>
+    <p>Sviluppo algoritmi che inseriscono numeri particolari negli array</p>
+
+    <div id="numeri_casuali">
+        <p>Lista di 100 numeri casuali:</p>
+        <p id="out1">-</p>
+    </div>
+    <p></p>
+    <div id="gh">
+        <p>lista numeri casuali da 1 a 1000:</p>
+        <p id="out2">-</p>
+    </div>
+    <div id="hg">
+        <p>lista numeri primi casuali tra 1 a 1000:</p>
+        <p id="out3">-</p>
+    </div>
+    <div id="hg">
+        <p>lista numeri primi tra 1 a 100:</p>
+        <p id="out4">-</p>
+    </div>
+
+    <script>
+            let numeri=[];
+            let numeri2=[];
+            let indice=0;
+            function InserisciNumeroCasuale(i){
+                    let numeroCasuale=Math.floor(Math.random()*100);
+                    numeri[i]=numeroCasuale;
+            }
+        for(let i=0;i<100;i++){
+                InserisciNumeroCasuale(i);
+        }
+        document.getElementById("out1").innerHTML=numeri;
+        let numerocasuale2 = Math.floor(Math.random() * 900);  
+        let si = numerocasuale2 + 101; 
+        for (let i = numerocasuale2; i < si; i++) {
+            numeri[indice] = i; 
+            indice++;
+        }
+        document.getElementById("out2").innerHTML = numeri;
+        function IsPrime(n){  
+            let isPrime=true;
+            for(let i=2;i<(n/2);i++){
+                if((n%i)==0){
+                    isPrime=false;
+                    }
+                }
+                return isPrime;
+            }
+        
+        let primi=[];
+        let primissimi=[];
+        let indice2=0;
+        let miao=0
+        for(i=0; i<1000;i++){
+            let prime=IsPrime(i);
+            if (prime==true){
+                primi[indice2]=i;
+                indice2++;
+            }
+        }
+        for (i=0;i<10;i++){
+            let casuale=Math.floor(Math.random() * indice2);
+            miao=primi[casuale];
+            primissimi[i]=casuale;
+        }
+        document.getElementById("out3").innerHTML=primissimi;
+        let primi1=[];
+        let indice3=0;
+        for(i=0; i<100;i++){
+            let prime1=IsPrime(i);
+            if (prime1==true){
+                primi1[indice3]=i;
+                indice3++;
+            }
+        }
+        document.getElementById("out4").innerHTML=primi1;
+    </script>
+</body>
+</html>
