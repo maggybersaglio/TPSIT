@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrice Responsiva</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+        .cella {
+            border: 1px solid #ccc;
+            text-align: center;
+            padding: 15px;
+            background-color: #e9f5fc;
+            font-size: 16px;
+            font-weight: normal;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .cella:hover {
+            background-color: #d1e7f0;
+            transform: scale(1.1);
+        }
+        .griglia-contenitore {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr); /* 10 colonne */
+            gap: 2px; /* Spazio tra le celle */
+        }
+        .primo {
+            background-color: #6cdb76; /* Verde chiaro */
+            color: #ffffff; /* Testo bianco */
+            font-weight: bold; /* Testo in grassetto */
+            border: 1px solid #5bbd62;
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-4">
+        <h1 class="text-center mb-4">Matrice Responsiva 10x10</h1>
+        <div class="griglia-contenitore" id="griglia"></div>
+    </div>
+    <script>
+        function isPrime(n) {
+            if (n < 2) return false;
+            for (let i = 2; i <= Math.sqrt(n); i++) {
+                if (n % i === 0) return false;
+            }
+            return true;
+        }
+
+        const griglia = document.getElementById('griglia');
+
+        for (let i = 1; i <= 100; i++) {
+            const cella = document.createElement('div');
+            cella.className = 'cella';
+            if (isPrime(i)) {
+                cella.classList.add('primo');
+            }
+            cella.textContent = i;
+            griglia.appendChild(cella);
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
