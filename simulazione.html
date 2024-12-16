@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temporizzatore</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        #contenuto {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #box {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-sizing: border-box;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        #box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        b {
+            font-size: 1.5rem;
+            color: #007acc;
+        }
+
+        div {
+            margin-bottom: 20px;
+        }
+
+        #out1, #out2, #out3 {
+            font-size: 1rem;
+            color: #555;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="contenuto">
+        <div id="box">
+            <b>Temporizzatore</b>
+            <div>
+                ESERCIZIO 1
+                <div id="out1"></div>
+            </div>
+            <div>
+                ESERCIZIO 2
+                <div id="out2"></div>
+            </div>
+            <div>
+                ESERCIZIO 3
+                <div id="out3"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function avvioTemporizzatore() {
+            setInterval(temporizzatore, 1000);
+        }
+
+        function temporizzatore() {
+            const numeroCasuale = Math.floor(Math.random() * 1000);
+            document.getElementById("out1").innerHTML = numeroCasuale;
+
+            if (numeroCasuale % 2 === 0) {
+                document.getElementById("out2").innerHTML = "Il numero è pari";
+            } else {
+                document.getElementById("out2").innerHTML = "Il numero è dispari";
+            }
+
+            if (isPrime(numeroCasuale)) {
+                document.getElementById("out2").innerHTML += "<br>Il numero è primo";
+            } else {
+                document.getElementById("out2").innerHTML += "<br>Il numero non è primo";
+            }
+
+            document.getElementById("out3").innerHTML = `Doppio: ${numeroCasuale * 2} | Metà intera: ${Math.round(numeroCasuale / 2)}<br>`;
+            document.getElementById("out3").innerHTML += `Complemento: ${1000 - numeroCasuale}<br>`;
+            document.getElementById("out3").innerHTML += `Precedente: ${numeroCasuale - 1} | Successivo: ${numeroCasuale + 1}<br>`;
+            document.getElementById("out3").innerHTML += `Moltiplicazione per 3.14: ${(numeroCasuale * 3.14).toFixed(2)}`;
+        }
+
+        avvioTemporizzatore();
+
+        function isPrime(num) {
+            if (num <= 1) return false;
+            for (let i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) return false;
+            }
+            return true;
+        }
+    </script>
+</body>
+</html>
