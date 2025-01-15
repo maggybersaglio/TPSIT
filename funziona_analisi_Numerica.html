@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proprietà dei numeri</title>
+    <style>
+        /* Reset e miglioramento del layout */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #444;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #output {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-gap: 10px;
+            justify-items: center;
+            padding: 10px;
+        }
+
+        .line {
+            background-color: #ffffff;
+            border-radius: 5px;
+            padding: 10px;
+            width: 80%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 16px;
+            line-height: 1.6;
+            text-align: left;
+            transition: background-color 0.3s ease;
+        }
+
+        .line:hover {
+            background-color: #f9f9f9;
+        }
+
+        .prime {
+            color: red;
+            font-weight: bold;
+        }
+
+        /* Responsive per schermi piccoli */
+        @media (max-width: 768px) {
+            #output {
+                grid-template-columns: 1fr;
+                padding: 5px;
+            }
+
+            .line {
+                width: 100%;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Proprietà dei numeri da 1 a 10000</h1>
+    <div id="output"></div>
+
+    <script>
+        // Funzione per determinare se un numero è primo
+        function isPrime(n) {
+            if (n <= 1) return false;
+            for (let i = 2; i <= Math.sqrt(n); i++) {
+                if (n % i === 0) return false;
+            }
+            return true;
+        }
+
+        // Funzione per generare e stampare le proprietà
+        function printProperties() {
+            const outputDiv = document.getElementById("output");
+
+            for (let n = 1; n <= 10000; n++) {
+                const isEven = (n % 2 === 0);
+                const parity = isEven ? "pari" : "dispari";
+                const prime = isPrime(n);
+                
+                // Doppio e metà
+                const double = n * 2;
+                const half = Math.floor(n / 2);
+                
+                // Complemento rispetto a 1000
+                const complement = 1000 - n;
+                
+                // Somma dei vicini
+                const sumNeighbors = (n - 1) + n + (n + 1);
+                
+                // Moltiplicazioni per 3.14 e 2.71
+                const multiply_3_14 = (n * 3.14).toFixed(2);
+                const multiply_2_71 = (n * 2.71).toFixed(2);
+                
+                // Creazione della stringa da stampare
+                let result = `${n}: ${parity}, ${prime ? 'primo' : 'non primo'}, doppio: ${double}, metà: ${half}, complemento: ${complement}, somma vicini: ${sumNeighbors}, *3.14: ${multiply_3_14}, *2.71: ${multiply_2_71}`;
+
+                // Crea il div per la riga
+                const lineDiv = document.createElement("div");
+                lineDiv.classList.add("line");
+
+                // Se è primo, aggiungi la classe "prime" per colorarlo in rosso
+                if (prime) {
+                    lineDiv.classList.add("prime");
+                }
+
+                // Imposta il contenuto della riga
+                lineDiv.textContent = result;
+
+                // Aggiungi la riga all'output
+                outputDiv.appendChild(lineDiv);
+            }
+        }
+
+        // Esegui la funzione per stampare le proprietà
+        printProperties();
+    </script>
+</body>
+</html>
