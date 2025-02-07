@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bottoni con Timer</title>
+</head>
+<body>
+    <button onclick="handleClick(0)">Bottone 1</button>
+    <button onclick="handleClick(1)">Bottone 2</button>
+    <button onclick="handleClick(2)">Bottone 3</button>
+    <button onclick="handleClick(3)">Bottone 4</button>
+    
+    <p id="output"></p>
+    <p id="timeDiffs"></p>
+    
+    <script>
+        let firstClickTime = null;
+        let timeDiffs = [];
+
+        function handleClick(buttonIndex) {
+            let now = new Date();
+            let timestamp = now.toLocaleString() + "." + now.getMilliseconds();
+            document.getElementById("output").innerText = `Bottone ${buttonIndex + 1} premuto: ${timestamp}`;
+            
+            if (firstClickTime === null) {
+                firstClickTime = now;
+            } else {
+                let diff = now - firstClickTime; 
+                let seconds = (diff / 1000).toFixed(3); 
+                timeDiffs.push(seconds);
+                document.getElementById("timeDiffs").innerText = `Differenze: ${timeDiffs.join(", ")} secondi`;
+            }
+        }
+    </script>
+</body>
+</html>
