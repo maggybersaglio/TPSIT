@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Sequenziale</title>
+    <style>
+        body {
+            background-color: #222;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+        }
+        .navbar {
+            background-color: #ff4500;
+            padding: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff4500;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin: 20px 0;
+        }
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 30px;
+        }
+        .btn-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            gap: 10px;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+        .game-btn {
+            width: 100px;
+            height: 100px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .game-btn:active {
+            transform: scale(0.9);
+        }
+        .start-btn {
+            background-color: #ff4500;
+            color: white;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .start-btn:hover {
+            background-color: #e03e00;
+        }
+    </style>
+    <script>
+        function illuminati(id) {
+            let btn = document.getElementById("" + id);
+            let originalColor = window.getComputedStyle(btn).backgroundColor;
+            btn.style.boxShadow = `0 0 15px 5px ${originalColor}`;
+            btn.style.transform = "scale(1.05)"; // Leggero ingrandimento
+        }
+
+        function spegniti(id) {
+            let btn = document.getElementById("" + id);
+            btn.style.boxShadow = "";
+            btn.style.transform = "scale(1)"; // Torna alla dimensione originale
+        }
+
+        function riaccendersi() {
+            giocatore = new Array();
+            let i = 0; //inizializzo il contatore
+            while (i < sequenza.length ){
+                setTimeout(illuminati, 1000*i, sequenza[i]);
+                setTimeout(spegniti, 1000*i + 1000, sequenza[i]);
+                setTimeout(i++, 2000);
+            }
+            let id = Math.floor(Math.random() * 9);
+            sequenza.push(id);
+            setTimeout(illuminati, 1000 * i, id);
+            setTimeout(spegniti, 1000 * i + 1000, id);
+        }
+
+        function start() {
+            sequenza = new Array();
+            giocatore = new Array();
+            let i = 0;
+            let id = Math.floor(Math.random() * 9);
+            sequenza.push(id);
+            setTimeout(illuminati, 1000 * i, id);
+            setTimeout(spegniti, 1000 * i + 1000, id);
+        }
+
+        function salva(id) {
+            giocatore.push(id);
+            if(sequenza.toString() === giocatore.toString()){
+                setTimeout(riaccendersi, 1000);
+                document.getElementById("pippo").innerHTML = "punteggio: " + giocatore.length;
+            } else {
+                if(sequenza.length == giocatore.length){
+                    alert("Hai perso!");
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="navbar">Memory Sequenziale</div>
+    <div class="score" id="pippo">Punteggio: 0</div>
+    <button class="start-btn" onclick="start()">Start</button>
+    <div class="game-container">
+        <div class="btn-grid">
+            <button class="game-btn" id="0" style="background-color: red;" onclick="salva(0)"></button>
+            <button class="game-btn" id="1" style="background-color: green;" onclick="salva(1)"></button>
+            <button class="game-btn" id="2" style="background-color: blue;" onclick="salva(2)"></button>
+            <button class="game-btn" id="3" style="background-color: yellow;" onclick="salva(3)"></button>
+            <button class="game-btn" id="4" style="background-color: orange;" onclick="salva(4)"></button>
+            <button class="game-btn" id="5" style="background-color: purple;" onclick="salva(5)"></button>
+            <button class="game-btn" id="6" style="background-color: pink;" onclick="salva(6)"></button>
+            <button class="game-btn" id="7" style="background-color: cyan;" onclick="salva(7)"></button>
+            <button class="game-btn" id="8" style="background-color: brown;" onclick="salva(8)"></button>
+        </div>
+    </div>
+</body>
+</html>
