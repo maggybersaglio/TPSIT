@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form con POST e JavaScript</title>
+</head>
+<body>
+    <form id="myForm">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" required>
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+        <button type="submit">Invia</button>
+    </form>
+    
+    <div id="output"></div>
+
+    <script>
+        document.getElementById("myForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evita il comportamento predefinito di invio del form
+            
+            // Cattura i dati del form
+            let formData = new FormData(event.target);
+            let outputDiv = document.getElementById("output");
+            
+            // Costruisce il testo da mostrare
+            let outputText = "<h3>Dati inviati:</h3>";
+            formData.forEach((value, key) => {
+                outputText += `<p><strong>${key}:</strong> ${value}</p>`;
+            });
+            
+            // Mostra i dati nella div
+            outputDiv.innerHTML = outputText;
+        });
+    </script>
+</body>
+</html>
