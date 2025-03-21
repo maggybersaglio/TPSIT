@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipolazione Stringhe</title>
+    <script>
+        function calcolaLunghezza() {
+            let str1 = document.getElementById("string1").value;
+            let str2 = document.getElementById("string2").value;
+            
+            document.getElementById("length1").innerText = "Lunghezza: " + str1.length;
+            document.getElementById("length2").innerText = "Lunghezza: " + str2.length;
+        }
+
+        function invertiStringa(str) {
+            return str.split('').reverse().join('');
+        }
+
+        function mostraStringheInvertite() {
+            let str1 = document.getElementById("string1").value;
+            let str2 = document.getElementById("string2").value;
+            
+            document.getElementById("reverse1").innerText = "Invertita: " + invertiStringa(str1);
+            document.getElementById("reverse2").innerText = "Invertita: " + invertiStringa(str2);
+        }
+
+        function unisciStringhe() {
+            let str1 = document.getElementById("string1").value;
+            let str2 = document.getElementById("string2").value;
+            
+            document.getElementById("combined").innerText = "Unione: " + str1 + str2;
+        }
+
+        function sommaLunghezze() {
+            let str1 = document.getElementById("string1").value;
+            let str2 = document.getElementById("string2").value;
+            let somma = str1.length + str2.length;
+            let messaggio = "Somma lunghezze: " + somma;
+            
+            if (str2.length > 20) {
+                messaggio += " - b troppo lunga";
+            }
+            
+            document.getElementById("lengthSum").innerText = messaggio;
+        }
+    </script>
+</head>
+<body>
+    <h2>Manipolazione Stringhe</h2>
+    <label for="string1">Stringa 1:</label>
+    <input type="text" id="string1" oninput="calcolaLunghezza()">
+    <p id="length1">Lunghezza: </p>
+    <p id="reverse1">Invertita: </p>
+    
+    <label for="string2">Stringa 2:</label>
+    <input type="text" id="string2" oninput="calcolaLunghezza()">
+    <p id="length2">Lunghezza: </p>
+    <p id="reverse2">Invertita: </p>
+    
+    <button onclick="mostraStringheInvertite()">Inverti Stringhe</button>
+    <button onclick="unisciStringhe()">Unisci Stringhe</button>
+    <button onclick="sommaLunghezze()">Calcola Somma Lunghezze</button>
+    
+    <p id="combined">Unione: </p>
+    <p id="lengthSum">Somma lunghezze: </p>
+</body>
+</html>
