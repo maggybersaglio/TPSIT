@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Div Casuali</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+    .div-container {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+    }
+    .div1 {
+        left:50px;
+         top:50px;
+         height:50px;
+         background-color: blue;
+         color:black;
+         position:absolute;
+         height:100px;
+         width:100px;
+         text-align:center;
+         font-size:20px; 
+         border-width:1px;
+         border:solid black;
+      
+    }
+    .div2 {
+        left:50px;
+         top:50px;
+         height:50px;
+         background-color:yellow;
+         color:black;
+         position:absolute;
+         height:100px;
+         width:100px;
+         text-align:center;
+         font-size:20px; 
+         border-width:1px;
+         border:solid black;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="div1" class="div-container div1"></div>
+  <div id="div2" class="div-container div2"></div>
+
+  <script>
+    
+    function randomPosition(div) {
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      const randomX = Math.random() * (windowWidth - 100);
+      const randomY = Math.random() * (windowHeight - 100);
+      div.style.left = `${randomX}px`;
+      div.style.top = `${randomY}px`;
+    }
+
+    
+    function checkOverlap() {
+      const div1 = document.getElementById("div1");
+      const div2 = document.getElementById("div2");
+
+      const rect1 = div1.getBoundingClientRect();
+      const rect2 = div2.getBoundingClientRect();
+
+      
+      const overlap = !(rect1.right < rect2.left || rect1.left > rect2.right || rect1.bottom < rect2.top || rect1.top > rect2.bottom);
+
+      if (overlap) {
+        div1.style.backgroundColor = "red";
+        div2.style.backgroundColor = "red";
+      } else {
+        div1.style.backgroundColor = "blue";
+        div2.style.backgroundColor = "yellow";
+      }
+    }
+
+    
+    function moveDivs() {
+      const div1 = document.getElementById("div1");
+      const div2 = document.getElementById("div2");
+
+      randomPosition(div1);
+      randomPosition(div2);
+
+      checkOverlap();
+    }
+
+    
+    setInterval(moveDivs, 1000);
+
+  </script>
+
+</body>
+</html>
