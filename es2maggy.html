@@ -2,49 +2,85 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Movimento Quadrato</title>
+  <title>Temporizzatore - Quadrati progressivi</title>
   <style>
-    #container {
-      width: 400px;
-      height: 400px;
-      position: relative;
-      border: 2px solid black;
-      margin: 50px auto;
+    /* Stile contenitore: allinea i quadrati in fila */
+    .container {
+      display: flex;
+      margin-top: 30px;
     }
 
-    #square {
-      width: 50px;
-      height: 50px;
-      background-color: red;
-      position: absolute;
-      top: 0;
-      left: 0;
+    /* Stile per ogni quadrato */
+    .miediv {
+      width: 50px;                 /* larghezza del quadrato */
+      height: 50px;                /* altezza del quadrato */
+      margin: 5px;                 /* spazio tra quadrati */
+      background-color: yellow;    /* colore iniziale */
+      border: 1px solid black;     /* bordo nero */
     }
   </style>
 </head>
-<body>
+<body onload="startAnimation()"> <!-- Quando la pagina è pronta, parte l'animazione -->
 
-<div id="container">
-  <div id="square"></div>
-</div>
+  <!-- Contenitore dei quadrati -->
+  <div class="container" id="boxContainer">
+    <!-- 8 div con id univoci da q0 a q7 -->
+    <div class="miediv" id="q0"></div>
+    <div class="miediv" id="q1"></div>
+    <div class="miediv" id="q2"></div>
+    <div class="miediv" id="q3"></div>
+    <div class="miediv" id="q4"></div>
+    <div class="miediv" id="q5"></div>
+    <div class="miediv" id="q6"></div>
+    <div class="miediv" id="q7"></div>
+  </div>
 
-<script>
-  const square = document.getElementById("square");
-  let x = 0, y = 0;
-  let direction = "right";
-  const step = 2;
-  const limit = 350;
+  <script>
+    const numBoxes = 8;                  // Numero totale di quadrati
+    const delayPerStep = 300;            // Ritardo (ms) tra ogni passo di "corsa"
+    const boxes = [];                    // Array che conterrà i riferimenti ai quadrati
 
-  setInterval(() => {
-    switch (direction) {
-      case "right":
-        x += step;
-        if (x >= limit) direction = "down";
-        break;
-      case "down":
-        y += step;
-        if (y >= limit) direction = "left";
-        break;
-      case "left":
-        x -= step;
-        if (x <= 0) direction
+    window.onload = function () {
+      // Quando la pagina è caricata, inserisce i quadrati nell'array boxes
+      for (let i = 0; i < numBoxes; i++) {
+        boxes.push(document.getElementById("q" + i));
+      }
+      startAnimation(); // Avvia l’animazione
+    };
+
+    function startAnimation() {
+      let runnerIndex = 0;           // Da dove parte ogni "corridore"
+      let targetEnd = numBoxes - 1;  // Posizione finale del primo corridore (ultima casella)
+
+      // Funzione che lancia ogni "corridore"
+      function launchRunner() {
+        if (targetEnd < 0) return; // Quando finiscono le posizioni disponibili, termina
+
+        let currentPos = runnerIndex; // Il corridore parte dalla prima casella
+
+        // Funzione che muove il quadrato da sinistra verso destra
+        function step() {
+          if (currentPos < targetEnd) {
+            boxes[currentPos].style.backgroundColor = "yellow"; // Spegne il quadrato precedente
+            currentPos++; // Passa alla casella successiva
+            boxes[currentPos].style.backgroundColor = "red";    // Colora il nuovo quadrato in rosso
+
+            setTimeout(step, delayPerStep); // Ripeti il passo dopo un certo ritardo
+          } else {
+            // Quando ha raggiunto la sua posizione finale
+            runnerIndex = 0;     // Resetta il punto di partenza
+            targetEnd--;         // Il prossimo corridore si fermerà una casella prima
+            setTimeout(launchRunner, 500); // Lancia il prossimo corridore dopo una piccola pausa
+          }
+        }
+
+        boxes[currentPos].style.backgroundColor = "red"; // Colora il punto di partenza
+        setTimeout(step, delayPerStep); // Inizia il movimento dopo il primo ritardo
+      }
+
+      launchRunner(); // Avvia il primo corridore
+    }
+  </script>
+
+</body>
+</html>
