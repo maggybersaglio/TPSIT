@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Primo Click!</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      margin-top: 50px;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      font-size: 36px;
+      color: #333;
+    }
+
+    .number {
+      display: inline-block;
+      margin: 10px;
+      padding: 20px;
+      font-size: 24px;
+      background: #e0e0e0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .number:hover {
+      background: #d0d0d0;
+    }
+
+    #startBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #startBtn:hover {
+      background-color: #45a049;
+    }
+
+    #results {
+      margin-top: 30px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Primo Click!</h1>
+  <p>Clicca sul numero primo il più velocemente possibile!</p>
+
+  <div id="numbersContainer"></div>
+  <button id="startBtn">Inizia il gioco</button>
+
+  <div id="results"></div>
+
+  <script>
+    const container = document.getElementById("numbersContainer");
+    const startBtn = document.getElementById("startBtn");
+    const resultsDiv = document.getElementById("results");
+
+    let reactionTimes = [];
+    let startTime = null;
+    let interval = null;
+    let round = 0;
+    const totalRounds = 5;
+
+    function isPrime(n) {
+      if (n < 2) return false;
+      for (let i = 2; i <= Math.sqrt(n); i++) {
+        if (n % i === 0) return false;
+      }
+      return true;
+    }
+
+    function getRandomNumber() {
+      return Math.floor(Math.random() * 90 + 10); // numeri tra 10 e 99
+    }
+
+    function generateNumbers() {
+      container.innerHTML = "";
+      let numbers = [];
+      let primeIncluded = false;
+
+      // Genera 4 numeri casuali
+      while (numbers.length < 4) {
+        let num = getRandomNumber();
+        if (!numbers.includes(num)) {
+          numbers.push(num);
+          if (isPrime(num)) primeIncluded = true;
+        }
+      }
+
+      // Assicura che almeno un numero primo sia presente
+      if (!primeIncluded) {
+        let primeList = [11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47];
+        let replaceIndex = Math.floor(Math.random() * 4);
+        numbers[replaceIndex] = primeList[Math.floor(Math.random() * primeList.length)];
+      }
+
+      numbers.forEach(num => {
+        const btn = document.createElement("div");
+        btn.classList.add("number");
+        btn.textContent = num;
+        btn.addEventListener("click", () => handleClick(num));
+        container.appendChild(btn);
+      });
+
+      startTime = performance.now();
+    }
+
+    function handleClick(selectedNum) {
+      const reaction = performance.now() - startTime;
+      if (isPrime(selectedNum)) {
+        reactionTimes.push(reaction);
+        round++;
+        if (round >= totalRounds) {
+          clearInterval(interval);
+          showResults();
+        }
+      } else {
+        alert("Non è un numero primo! Riprova.");
+      }
+    }
+
+    function showResults() {
+      const average = (reactionTimes.reduce((a, b) => a + b, 0) / reactionTimes.length).toFixed(2);
+      resultsDiv.innerHTML = `
+        <h2>Risultati</h2>
+        <p>Tempi di reazione (ms): ${reactionTimes.map(t => t.toFixed(2)).join(", ")}</p>
+        <p>Tempo medio: ${average} ms</p>
+      `;
+      container.innerHTML = "";
+    }
+
+    startBtn.addEventListener("click", () => {
+      round = 0;
+      reactionTimes = [];
+      resultsDiv.innerHTML = "";
+      generateNumbers();
+      interval = setInterval(() => {
+        if (round < totalRounds) generateNumbers();
+      }, 3000); // nuovo set ogni 3 secondi
+    });
+  </script>
+
+</body>
+</html>
