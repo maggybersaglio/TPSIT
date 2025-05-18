@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Movimento Quadrato</title>
+  <style>
+    #container {
+      width: 400px;
+      height: 400px;
+      position: relative;
+      border: 2px solid black;
+      margin: 50px auto;
+    }
+
+    #square {
+      width: 50px;
+      height: 50px;
+      background-color: red;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div id="container">
+  <div id="square"></div>
+</div>
+
+<script>
+  const square = document.getElementById("square");
+  let x = 0, y = 0;
+  let direction = "right";
+  const step = 2;
+  const limit = 350;
+
+  setInterval(() => {
+    switch (direction) {
+      case "right":
+        x += step;
+        if (x >= limit) direction = "down";
+        break;
+      case "down":
+        y += step;
+        if (y >= limit) direction = "left";
+        break;
+      case "left":
+        x -= step;
+        if (x <= 0) direction
