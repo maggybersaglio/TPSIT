@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Numeri Casuali Facile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Generatore di Numeri Casuali</h2>
+
+    <div class="text-center mb-3">
+      <button id="stop" class="btn btn-danger">Ferma Generazione</button>
+    </div>
+
+    <ul id="lista" class="list-group"></ul>
+  </div>
+
+  <script>
+    // Array dove mettiamo i numeri casuali
+    const numeriCasuali = [];
+    const rapporti = [];
+    const distanze = [];
+
+    const lista = document.getElementById('lista');
+    const intervallo = setInterval(generaNumero, 500); // ogni 500ms
+
+    function generaNumero() {
+      // 1) Numero casuale da 0 a 1
+      const numero = Math.random();
+
+      // 2) Lo salviamo nell'array
+      numeriCasuali.push(numero);
+
+      // 3) Se c'è almeno un numero prima, calcoliamo il rapporto
+      let rapporto = null;
+      if (numeriCasuali.length > 1) {
+        const i = numeriCasuali.length - 1;
+        rapporto = numeriCasuali[i] / numeriCasuali[i - 1];
+        rapporti.push(rapporto);
+      }
+
+      // 4) Calcolo distanza dalla metà del range (che è 0.5)
+      const distanza = Math.abs(numero - 0.5);
+      distanze.push(distanza);
+
+      // 5) Calcolo media ogni 50 numeri
+      if (numeriCasuali.length % 50 === 0) {
+        let somma = 0;
+        for (let i = numeriCasuali.length - 50; i < numeriCasuali.length; i++) {
+          somma += numeriCasuali[i];
+        }
+        const media = somma / 50;
+        console.log("Media ultimi 50 numeri:", media.toFixed(4));
+      }
+
+      // 6) Stampiamo tutto nella lista
+      const voce = document.createElement("li");
+      voce.classList.add("list-group-item");
+      voce.textContent = `Numero: ${numero.toFixed(4)} | Distanza da 0.5: ${distanza.toFixed(4)}${
+        rapporto ? " | Rapporto: " + rapporto.toFixed(4) : ""
+      }`;
+      lista.appendChild(voce);
+
+      // Limitiamo la lista a 100 elementi
+      if (lista.children.length > 100) {
+        lista.removeChild(lista.firstChild);
+      }
+    }
+
+    // Bottone per fermare tutto
+    document.getElementById("stop").addEventListener("click", () => {
+      clearInterval(intervallo);
+      alert("Generazione fermata");
+    });
+  </script>
+
+</body>
+</html>
+
+
